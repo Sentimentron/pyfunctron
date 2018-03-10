@@ -12,7 +12,7 @@ setup(
     version='0.1.0',
     description='Python bindings for Functron - a minimalist FaaS',
     long_description=long_description,
-    url='https://github.com/Sentimentron/functron/python',
+    url='https://github.com/Sentimentron/pyfunctron',
     author_email='richard@sentimentron.co.uk',
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -25,7 +25,7 @@ setup(
    py_modules=['pyfunctron'],
    install_requires=['requests'],
    project_urls={
-    'Bug Reports': 'https://github.com/Sentimentron/functron/issues',
-    'Source': 'https://github.com/Sentimentron/functron'
+    'Bug Reports': 'https://github.com/Sentimentron/pyfunctron/issues',
+    'Source': 'https://github.com/Sentimentron/pyfunctron'
    },
 )
