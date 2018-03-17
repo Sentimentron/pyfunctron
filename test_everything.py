@@ -10,6 +10,10 @@ class TestInvoke(unittest.TestCase):
     def get_path(self, test_fn):
         return os.path.join(self.path, test_fn, "Dockerfile")
 
+    def test_connection(self):
+        with FunctronInvocation("test-hello-world") as fi:
+            self.assertTrue(fi.test_connection(self.url))
+
     def test_basic_stdout(self):
         with FunctronInvocation("test-hello-world") as fi:
             fi.set_dockerfile(self.get_path("test_fn_hello_world"))

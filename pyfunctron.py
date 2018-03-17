@@ -111,6 +111,14 @@ class FunctronInvocation:
         if timeout:
             self.set_timeout(timeout)
         json = self.to_json()
+        url += "v1/exec"
         response = requests.post(url, json=json)
         return FunctronResponse.from_json(response.json())
 
+    def test_connection(self, url) -> bool:
+        """
+            This function checks that the Functron server at :url: is responding.
+        """
+        url += "v1/ping"
+        response = requests.post(url)
+        return response.status_code == 200
