@@ -1,4 +1,5 @@
 import unittest
+import base64
 from pyfunctron import *
 
 class TestInvoke(unittest.TestCase):
@@ -10,6 +11,12 @@ class TestInvoke(unittest.TestCase):
     def get_path(self, test_fn):
         return os.path.join(self.path, test_fn, "Dockerfile")
 
+    @classmethod
+    def format_out(cls, out):
+        if out is None:
+            return out
+        return base64.b64decode(out)
+
     def test_connection(self):
         with FunctronInvocation("test-hello-world") as fi:
             self.assertTrue(fi.test_connection(self.url))
@@ -19,8 +26,8 @@ class TestInvoke(unittest.TestCase):
             fi.set_dockerfile(self.get_path("test_fn_hello_world"))
             fi.add_files(os.path.join(self.path, "test_fn_hello_world"))
             response = fi.invoke(self.url)
-            self.assertEqual(None, response.build_out.stderr)
-            self.assertEqual(None, response.cmd_out.stderr)
+            self.assertEqual(None, response.build_out.stderr, self.format_out(response.build_out.stderr))
+            self.assertEqual(None, response.cmd_out.stderr, self.format_out(response.cmd_out.stderr))
             self.assertEqual(b"Hello World!\n", response.cmd_out.stdout)
 
     def test_build_failure(self):
